@@ -1,19 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
 
-export interface Recipe {
-  nome: string;
-  descricao:string;
-  ingredientes: string[];
-  instrucoes: string[];
-  tempoDePreparo: string;
-  nivelDeDificuldade: 'Fácil' | 'Médio' | 'Difícil';
-}
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
 
-export interface RecipeWithImage extends Recipe {
-  imageUrl: string;
-}
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
 
-export interface WeeklyPlan {
-  [day: string]: {
-    [meal: string]: RecipeWithImage | null;
-  };
+    /* Path Aliases - ESSA É A CORREÇÃO PRINCIPAL */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
