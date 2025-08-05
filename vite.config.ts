@@ -1,22 +1,21 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import path from "path"
+import { fileURLToPath, URL } from "node:url"
 
 // https://vitejs.dev/config/
 export default defineConfig({
   // A propriedade 'base' é necessária APENAS para o deploy no GitHub Pages.
-  // Se o seu repositório se chama 'meu-app-de-receitas', o valor seria '/meu-app-de-receitas/'.
-  // Para a Vercel, esta linha não é necessária e pode ser removida ou comentada.
+  // Para a Vercel, esta linha não é necessária.
   // base: "/NOME_DO_SEU_REPOSITORIO/", 
   
   plugins: [react()],
   
   // A configuração de alias resolve os caminhos de importação.
-  // O erro de build na Vercel geralmente acontece por uma inconsistência aqui.
+  // Usar 'import.meta.url' é a abordagem moderna e mais segura para garantir
+  // que os caminhos funcionem em qualquer ambiente de build.
   resolve: {
     alias: {
-      // Garante que '@/' aponte para a raiz do projeto (onde está o App.tsx).
-      "@": path.resolve(__dirname, "./"), 
+      "@": fileURLToPath(new URL("./", import.meta.url)),
     }
   }
 })
